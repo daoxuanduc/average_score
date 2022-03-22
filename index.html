@@ -1,0 +1,121 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <!-- <link rel="stylesheet" href="./index.js"> -->
+    <script src="jquery-3.6.0.js"></script>
+    <title>Document</title>
+    <style>
+        .center {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Class Marksheet</h1>
+    <form action="">
+        <label for="name">Họ tên:</label>
+        <input type="text" id="name" name="name" value=""><br><br>
+        <label for="math">Điểm toán:</label>
+        <input type="text" id="math" name="math" value=""><br><br>
+        <label for="physical">Điểm lý:</label>
+        <input type="text" id="physical" name="physical" value=""><br><br>
+        <label for="chemistry">Điểm hóa:</label>
+        <input type="text" id="chemistry" name="chemistry" value=""><br>
+        <!-- <input type="submit" value="Nhập"> -->   
+    </form>
+    <p id="txtNoti" style="text-align: center;color: red;"></p>
+    <div class="center"><button id="btnEnter">Nhập</button></div><br><br>
+
+    <table id="myTable">
+        <tr>
+            <th id="tbStt">STT</th>
+            <th id="tbName">Họ tên</th>                 
+            <th id="tbMath">Toán</th>
+            <th id="tbPhysical">Lý</th>
+            <th id="tbChemistry">Hóa</th>
+            <th id="tbAverageScore">Trung bình</th>
+        </tr>  
+    </table><br>
+
+    <div id="btn" class="center">
+        <button id="btnAverageScore">Tính điểm trung bình</button>&nbsp;
+        <button id="btnIsGoodStudent">Xác định học sinh giỏi</button>
+    </div>
+
+    <!-- <p id="demo"></p> -->
+    
+
+    <script>
+        var stt = 0;       
+        $(document).ready(function() {
+
+            $("#btnEnter").click(function() {
+                if ($("#name").val()=="") {
+                    $("#txtNoti").text("Bạn cần nhập lại tên!");
+                    return;
+                }
+                if (isNaN($("#math").val())||($("#math").val()=="")) {
+                    $("#txtNoti").text("Bạn cần nhập lại điểm Toán!");
+                    return;
+                }
+                if (isNaN($("#physical").val())||($("#physical").val()=="")) {
+                    $("#txtNoti").text("Bạn cần nhập lại điểm Lý!");
+                    return;
+                }
+                if (isNaN($("#chemistry").val())||($("#chemistry").val()=="")) {
+                    $("#txtNoti").text("Bạn cần nhập lại điểm Hóa!");
+                    return;
+                }
+
+                stt++;
+
+                $("#txtNoti").text("");
+                var txt = "<tr>" + 
+                                "<td>" + stt + "</td>" +
+                                "<td>" + $("#name").val() + "</td>" +
+                                "<td>" + $("#math").val() + "</td>" +
+                                "<td>" + $("#physical").val() + "</td>" +
+                                "<td>" + $("#chemistry").val() + "</td>" +
+                                "<td>?</td>" +
+                          "</tr>";
+                $("#myTable").append(txt);
+
+                $("#name").val("");
+                $("#math").val("");
+                $("#physical").val("");
+                $("#chemistry").val("");
+            });
+
+            $("#btnAverageScore").click(function() {
+                $("#myTable tr").each(function () {
+                    var self = $(this);
+                    //var col_3_value = self.find("td:eq(2)").text().trim();
+                    var col_3_value = parseFloat(self.find("td:eq(2)").text().trim(),10);
+                    var col_4_value = parseFloat(self.find("td:eq(3)").text().trim(),10);
+                    var col_5_value = parseFloat(self.find("td:eq(4)").text().trim(),10);
+                    var averageScore = ((col_3_value + col_4_value + col_5_value)/3).toFixed(1);
+                    if (!isNaN(averageScore)) { 
+                        self.find("td:eq(5)").text(averageScore);
+                    }                   
+                });
+            });
+
+            $("#btnIsGoodStudent").click(function() {
+                $("#myTable tr").each(function () {
+                    var self = $(this);
+                  
+                    if (parseFloat(self.find("td:eq(5)").text().trim(),10) >= 8) {
+                        
+                        self.css("color","red");
+                    }
+                })
+            });
+        })
+    </script>
+</body>
+</html>

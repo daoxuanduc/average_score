@@ -1,0 +1,35 @@
+h1 {
+    text-align: center;
+}
+form {
+    text-align: center;
+}
+th {
+    font-weight: bold;
+}
+table {
+    width:100%;
+}
+table, th, td {
+    border: 1px solid black;
+    text-align: center;
+}
+
+#tbStt {
+    width: 5%;
+}
+#tbName {
+    width: 35%;
+}
+#tbMath {
+    width: 15%;
+}
+#tbPhysical {
+    width: 15%;
+}
+#tbChemistry {
+    width: 15%;
+}
+#tbAverageScore {
+    width: 15%;
+}
